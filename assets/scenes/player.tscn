@@ -171,6 +171,9 @@ region = Rect2(128, 160, 32, 32)
 atlas = ExtResource("1_rwm0n")
 region = Rect2(160, 160, 32, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abc"]
+size = Vector2(40, 60)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_0hrit"]
 animations = [{
 "frames": [{
@@ -342,6 +345,14 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" unique_id=1617379274]
 script = ExtResource("2_player")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+debug_color = Color(1, 0, 0, 0.4)
+position = Vector2(40, 0)
+shape = SubResource("RectangleShape2D_abc")
+disabled = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1853192080]
 scale = Vector2(4, 4)

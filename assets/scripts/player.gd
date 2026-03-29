@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var hitbox = $Hitbox
+@onready var hitbox_shape = $Hitbox/HitboxShape
 
 const SPEED = 300.0
 var last_direction = Vector2(0, 1)
@@ -40,16 +42,22 @@ func _physics_process(delta):
 
 func perform_attack():
 	is_attacking = true
+	hitbox_shape.disabled = false
+
 	if last_direction.y < 0:
 		animated_sprite.play("attack_up")
+		hitbox.position = Vector2(-50, -30)
 	elif last_direction.y > 0:
 		animated_sprite.play("attack_down")
+		hitbox.position = Vector2(-45, 30)
 	else:
 		animated_sprite.play("attack_right")
 		animated_sprite.flip_h = last_direction.x < 0
+		hitbox.position = Vector2(10 if last_direction.x > 0 else -78, 0)
 
 	animated_sprite.animation_finished.connect(_on_attack_finished)
 
 func _on_attack_finished():
 	is_attacking = false
+	hitbox_shape.disabled = true
 	animated_sprite.animation_finished.disconnect(_on_attack_finished)
