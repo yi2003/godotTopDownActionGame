@@ -1,0 +1,55 @@
+extends CharacterBody2D
+
+@onready var animated_sprite = $AnimatedSprite2D
+
+const SPEED = 300.0
+var last_direction = Vector2(0, 1)
+var is_attacking = false
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed("ui_accept") and not is_attacking:
+		perform_attack()
+		return
+
+	if not is_attacking:
+		var direction_x = Input.get_axis("ui_left", "ui_right")
+		var direction_y = Input.get_axis("ui_up", "ui_down")
+
+		velocity = Vector2(direction_x, direction_y) * SPEED
+
+		if direction_x != 0:
+			last_direction.x = direction_x
+			last_direction.y = 0
+			animated_sprite.play("run_right")
+			animated_sprite.flip_h = direction_x < 0
+		elif direction_y < 0:
+			last_direction.y = -1
+			animated_sprite.play("run_up")
+		elif direction_y > 0:
+			last_direction.y = 1
+			animated_sprite.play("run_down")
+		elif direction_x == 0 and direction_y == 0:
+			if last_direction.y < 0:
+				animated_sprite.play("idle_up")
+			elif last_direction.y > 0:
+				animated_sprite.play("idle_right")
+			else:
+				animated_sprite.play("idle_right")
+
+	move_and_slide()
+
+func perform_attack():
+	is_attacking = true
+	if last_direction.y < 0:
+		animated_sprite.play("attack_up")
+	elif last_direction.y > 0:
+		animated_sprite.play("attack_down")
+	else:
+		animated_sprite.play("attack_right")
+		animated_sprite.flip_h = last_direction.x < 0
+
+	animated_sprite.animation_finished.connect(_on_attack_finished)
+
+func _on_attack_finished():
+	is_attacking = false
+	animated_sprite.animation_finished.disconnect(_on_attack_finished)
