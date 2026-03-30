@@ -9,6 +9,7 @@ var last_direction = Vector2(0, 1)
 var is_attacking = false
 
 func _ready():
+	add_to_group("player")
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 
 func _physics_process(delta):
