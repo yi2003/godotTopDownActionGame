@@ -8,6 +8,9 @@ const SPEED = 300.0
 var last_direction = Vector2(0, 1)
 var is_attacking = false
 
+func _ready():
+	hitbox.body_entered.connect(_on_hitbox_body_entered)
+
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and not is_attacking:
 		perform_attack()
@@ -61,3 +64,8 @@ func _on_attack_finished():
 	is_attacking = false
 	hitbox_shape.disabled = true
 	animated_sprite.animation_finished.disconnect(_on_attack_finished)
+
+func _on_hitbox_body_entered(body):
+	print("Hit: ", body.name)
+	if body.has_method("take_damage"):
+		body.take_damage()
