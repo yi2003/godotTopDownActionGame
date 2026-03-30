@@ -366,3 +366,14 @@ animation = &"attack_right"
 autoplay = "idle_right"
 frame = 3
 frame_progress = 1.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1627384650]
+position = Vector2(0, 3)
+zoom = Vector2(2, 2)
+limit_left = -1000
+limit_top = -1000
+limit_right = 1000
+limit_bottom = 1000
+limit_smoothed = true
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
