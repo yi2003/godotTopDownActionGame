@@ -46,14 +46,14 @@ func perform_attack():
 
 	if last_direction.y < 0:
 		animated_sprite.play("attack_up")
-		hitbox.position = Vector2(-50, -30)
+		hitbox.position = Vector2(0, -30)
 	elif last_direction.y > 0:
 		animated_sprite.play("attack_down")
-		hitbox.position = Vector2(-45, 30)
+		hitbox.position = Vector2(0, 30)
 	else:
 		animated_sprite.play("attack_right")
 		animated_sprite.flip_h = last_direction.x < 0
-		hitbox.position = Vector2(10 if last_direction.x > 0 else -78, 0)
+		hitbox.position = Vector2(50 * last_direction.x, 0)
 
 	animated_sprite.animation_finished.connect(_on_attack_finished)
 

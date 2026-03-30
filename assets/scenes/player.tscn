@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bdth30om65hm0" path="res://assets/images/player/Player.png" id="1_rwm0n"]
 [ext_resource type="Script" uid="uid://c7gcjpxwndobi" path="res://assets/scripts/player.gd" id="2_player"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abc"]
+size = Vector2(40, 60)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_attack_down_0"]
 atlas = ExtResource("1_rwm0n")
 region = Rect2(0, 192, 32, 32)
@@ -170,9 +173,6 @@ region = Rect2(128, 160, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_run_up_5"]
 atlas = ExtResource("1_rwm0n")
 region = Rect2(160, 160, 32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_abc"]
-size = Vector2(40, 60)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0hrit"]
 animations = [{
@@ -346,16 +346,20 @@ animations = [{
 [node name="Player" type="CharacterBody2D" unique_id=1617379274]
 script = ExtResource("2_player")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1343125974]
+position = Vector2(44, -1)
+metadata/_edit_group_ = true
 
-[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
-debug_color = Color(1, 0, 0, 0.4)
-position = Vector2(40, 0)
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox" unique_id=1211797153]
 shape = SubResource("RectangleShape2D_abc")
 disabled = true
+debug_color = Color(1, 0, 0, 0.4)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1853192080]
+position = Vector2(0, 3)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_0hrit")
-animation = &"attack_up"
+animation = &"attack_right"
 autoplay = "idle_right"
+frame = 3
+frame_progress = 1.0
