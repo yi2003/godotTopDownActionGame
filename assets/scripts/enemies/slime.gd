@@ -6,13 +6,22 @@ const SPEED = 100.0
 const CHASE_SPEED = 80.0
 const DETECTION_RANGE = 150.0
 const STOP_RANGE = 40.0
+const KNOCKBACK_DECAY = 0.85
 var health = 3
 var is_dead = false
 var is_chasing = false
 var player = null
+var knockback_velocity = Vector2.ZERO
 
 func _physics_process(delta):
 	if is_dead:
+		return
+
+	# Apply knockback
+	if knockback_velocity.length() > 1:
+		velocity = knockback_velocity
+		knockback_velocity *= KNOCKBACK_DECAY
+		move_and_slide()
 		return
 
 	# Find player if not set
@@ -47,6 +56,9 @@ func _physics_process(delta):
 		animated_sprite.play("idle")
 
 	move_and_slide()
+
+func apply_knockback(force: Vector2):
+	knockback_velocity = force
 
 func take_damage():
 	if is_dead:

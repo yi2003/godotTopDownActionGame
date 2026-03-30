@@ -70,3 +70,7 @@ func _on_hitbox_body_entered(body):
 	print("Hit: ", body.name)
 	if body.has_method("take_damage"):
 		body.take_damage()
+		# Apply knockback in the direction the player is facing
+		var knockback = last_direction * 300
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(knockback)
