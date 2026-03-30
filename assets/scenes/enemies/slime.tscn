@@ -164,6 +164,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
 size = Vector2(2.142857, 1.9047616)
 
+[sub_resource type="StyleBoxFlat" id="HealthBarBackground"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="HealthBarFill"]
+bg_color = Color(0, 1, 0, 1)
+
 [node name="Slime" type="CharacterBody2D" unique_id=1378315419]
 collision_layer = 2
 script = ExtResource("2_slime_script")
@@ -177,3 +183,13 @@ autoplay = "idle"
 position = Vector2(2.3841858e-07, 3.410605e-13)
 scale = Vector2(8.4, 8.4)
 shape = SubResource("RectangleShape2D_slime")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=888888881]
+offset_left = -8.0
+offset_top = 11.0
+offset_right = 8.0
+offset_bottom = 14.0
+theme_override_styles/background = SubResource("HealthBarBackground")
+theme_override_styles/fill = SubResource("HealthBarFill")
+max_value = 7.0
+show_percentage = false

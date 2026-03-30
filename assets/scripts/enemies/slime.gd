@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var health_bar = $HealthBar
 
 const SPEED = 100.0
 const CHASE_SPEED = 80.0
@@ -8,10 +9,15 @@ const DETECTION_RANGE = 150.0
 const STOP_RANGE = 40.0
 const KNOCKBACK_DECAY = 0.85
 var health = 3
+var max_health = 3
 var is_dead = false
 var is_chasing = false
 var player = null
 var knockback_velocity = Vector2.ZERO
+
+func _ready():
+	health_bar.max_value = max_health
+	health_bar.value = health
 
 func _physics_process(delta):
 	if is_dead:
@@ -64,6 +70,7 @@ func take_damage():
 	if is_dead:
 		return
 	health -= 1
+	health_bar.value = health
 	print("Slime took damage! Health: ", health)
 	if health <= 0:
 		die()
@@ -71,6 +78,7 @@ func take_damage():
 func die():
 	is_dead = true
 	is_chasing = false
+	health_bar.visible = false
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
 	queue_free()
