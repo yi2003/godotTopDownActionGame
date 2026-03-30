@@ -9,5 +9,6 @@
 position = Vector2(445, 262)
 
 [node name="Slime" parent="." unique_id=1378315419 instance=ExtResource("2_slime")]
-position = Vector2(900.0001, 272)
-scale = Vector2(5, 5)
+position = Vector2(684, 272)
+scale = Vector2(2, 2)
+collision_layer = 1
