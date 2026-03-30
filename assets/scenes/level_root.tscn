@@ -32,6 +32,8 @@ texture = ExtResource("2_fblen")
 sources/0 = SubResource("TileSetAtlasSource_fblen")
 sources/1 = SubResource("TileSetAtlasSource_2qi4d")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edccb"]
+
 [node name="LevelRoot" type="Node2D" unique_id=1540179368]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1714768524]
@@ -44,3 +46,12 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Slime" parent="." unique_id=1378315419 instance=ExtResource("4_fhjsa")]
 position = Vector2(249, 127)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1937999979]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D" unique_id=1974154196]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D" unique_id=16915905]
+position = Vector2(879, 404)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_edccb")
