@@ -343,6 +343,9 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
+size = Vector2(50, 74.5)
+
 [node name="Player" type="CharacterBody2D" unique_id=1617379274]
 script = ExtResource("2_player")
 
@@ -350,7 +353,6 @@ script = ExtResource("2_player")
 position = Vector2(44, -1)
 collision_layer = 2
 collision_mask = 2
-monitoring = true
 metadata/_edit_group_ = true
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox" unique_id=1211797153]
@@ -377,3 +379,7 @@ limit_bottom = 1000
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119975683]
+position = Vector2(3, -2.25)
+shape = SubResource("RectangleShape2D_s027a")
