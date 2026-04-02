@@ -126,6 +126,6 @@ func _setup_camera_limits():
 	camera.limit_top = world_rect_start.y - half_view_y
 	camera.limit_bottom = world_bottom + half_view_y
 
-	camera.current = true
+	camera.make_current()
 
 	print("Player: Camera limits - L:", camera.limit_left, " R:", camera.limit_right, " T:", camera.limit_top, " B:", camera.limit_bottom)
