@@ -78,34 +78,33 @@ func _on_hitbox_body_entered(body):
 			body.apply_knockback(knockback)
 
 func _setup_camera_limits():
-	var tilemap = get_node("/root/LevelRoot/TileMapLayer_Terrian")
-	if not tilemap:
+	var level = get_tree().current_scene
+	if level == null:
+		print("Player: Current scene not found")
 		return
 
-	var used_cells = tilemap.get_used_cells()
-	if used_cells.is_empty():
+	var tilemap = level.get_node("TileMapLayer_Terrian") as TileMapLayer
+	if tilemap == null:
+		print("Player: TileMap not found at level/TileMapLayer_Terrian")
+		return
+
+	var used_rect = tilemap.get_used_rect()
+	if used_rect.size == Vector2i.ZERO:
+		print("Player: Used rect empty")
 		return
 
 	var tile_size = tilemap.tile_set.tile_size
 	var tile_scale = tilemap.scale
 
-	# Calculate bounds in world coordinates
-	var min_x = INF
-	var max_x = -INF
-	var min_y = INF
-	var max_y = -INF
+	# Convert cell rect to world rect, including tilemap's position offset
+	var world_rect_start = tilemap.position + Vector2(used_rect.position) * tile_size * tile_scale
+	var world_rect_size = Vector2(used_rect.size) * tile_size * tile_scale
 
-	for cell in used_cells:
-		var world_x = cell.x * tile_size.x * tile_scale.x
-		var world_y = cell.y * tile_size.y * tile_scale.y
-		min_x = min(min_x, world_x)
-		max_x = max(max_x, world_x)
-		min_y = min(min_y, world_y)
-		max_y = max(max_y, world_y)
+	var world_right = world_rect_start.x + world_rect_size.x
+	var world_bottom = world_rect_start.y + world_rect_size.y
 
-	# Add tile size to get the right/bottom edges
-	var right_edge = max_x + tile_size.x * tile_scale.x
-	var bottom_edge = max_y + tile_size.y * tile_scale.y
+	print("Player: TileMap used rect (cells): ", used_rect)
+	print("Player: TileMap world bounds: x=", world_rect_start.x, " to ", world_right, ", y=", world_rect_start.y, " to ", world_bottom)
 
 	# Calculate how much of the world should be visible on each side
 	var viewport_width = get_viewport().size.x
@@ -113,8 +112,14 @@ func _setup_camera_limits():
 	var half_view_x = viewport_width / (2 * camera.zoom.x)
 	var half_view_y = viewport_height / (2 * camera.zoom.y)
 
+	print("Player: Viewport=", viewport_width, "x", viewport_height, " zoom=", camera.zoom, " half_view=", half_view_x, "x", half_view_y)
+
 	# Set camera limits with padding so player can reach screen edges
-	camera.limit_left = min_x - half_view_x
-	camera.limit_right = right_edge + half_view_x
-	camera.limit_top = min_y - half_view_y
-	camera.limit_bottom = bottom_edge + half_view_y
+	camera.limit_left = world_rect_start.x - half_view_x
+	camera.limit_right = world_right + half_view_x
+	camera.limit_top = world_rect_start.y - half_view_y
+	camera.limit_bottom = world_bottom + half_view_y
+
+	camera.current = true
+
+	print("Player: Camera limits - L:", camera.limit_left, " R:", camera.limit_right, " T:", camera.limit_top, " B:", camera.limit_bottom)
