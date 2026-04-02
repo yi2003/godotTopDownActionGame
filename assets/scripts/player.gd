@@ -78,7 +78,7 @@ func _on_hitbox_body_entered(body):
 			body.apply_knockback(knockback)
 
 func _setup_camera_limits():
-	var tilemap = $../TileMapLayer_Terrian as TileMapLayer
+	var tilemap = get_node("../TileMapLayer_Terrian") as TileMapLayer
 	if tilemap == null:
 		print("Player: TileMap not found as sibling (../TileMapLayer_Terrian)")
 		# Try alternative: search in parent
