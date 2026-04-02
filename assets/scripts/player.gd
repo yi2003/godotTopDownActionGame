@@ -78,14 +78,17 @@ func _on_hitbox_body_entered(body):
 			body.apply_knockback(knockback)
 
 func _setup_camera_limits():
-	var level = get_tree().current_scene
-	if level == null:
-		print("Player: Current scene not found")
-		return
-
-	var tilemap = level.get_node("TileMapLayer_Terrian") as TileMapLayer
+	var tilemap = $../TileMapLayer_Terrian as TileMapLayer
 	if tilemap == null:
-		print("Player: TileMap not found at level/TileMapLayer_Terrian")
+		print("Player: TileMap not found as sibling (../TileMapLayer_Terrian)")
+		# Try alternative: search in parent
+		var parent_node = get_parent()
+		if parent_node:
+			tilemap = parent_node.get_node("TileMapLayer_Terrian") as TileMapLayer
+			if tilemap:
+				print("Player: Found TileMap in parent")
+			else:
+				print("Player: Parent children: ", parent_node.get_children())
 		return
 
 	var used_rect = tilemap.get_used_rect()
