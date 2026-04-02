@@ -99,9 +99,12 @@ func _setup_camera_limits():
 	var tile_size = tilemap.tile_set.tile_size
 	var tile_scale = tilemap.scale
 
+	# Convert tile_size from Vector2i to Vector2 for proper multiplication
+	var tile_size_f = Vector2(tile_size.x, tile_size.y)
+
 	# Convert cell rect to world rect, including tilemap's position offset
-	var world_rect_start = tilemap.position + Vector2(used_rect.position) * tile_size * tile_scale
-	var world_rect_size = Vector2(used_rect.size) * tile_size * tile_scale
+	var world_rect_start = tilemap.position + Vector2(used_rect.position) * tile_size_f * tile_scale
+	var world_rect_size = Vector2(used_rect.size) * tile_size_f * tile_scale
 
 	var world_right = world_rect_start.x + world_rect_size.x
 	var world_bottom = world_rect_start.y + world_rect_size.y
