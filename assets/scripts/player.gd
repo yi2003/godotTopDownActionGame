@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hitbox = $Hitbox
 @onready var hitbox_shape = $Hitbox/HitboxShape
+@onready var camera = $Camera2D
 
 const SPEED = 300.0
 var last_direction = Vector2(0, 1)
@@ -11,6 +12,7 @@ var is_attacking = false
 func _ready():
 	add_to_group("player")
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
+	_setup_camera_limits()
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and not is_attacking:
@@ -74,3 +76,45 @@ func _on_hitbox_body_entered(body):
 		var knockback = last_direction * 300
 		if body.has_method("apply_knockback"):
 			body.apply_knockback(knockback)
+
+func _setup_camera_limits():
+	var tilemap = get_node("/root/LevelRoot/TileMapLayer_Terrian")
+	if not tilemap:
+		return
+
+	var used_cells = tilemap.get_used_cells()
+	if used_cells.is_empty():
+		return
+
+	var tile_size = tilemap.tile_set.tile_size
+	var tile_scale = tilemap.scale
+
+	# Calculate bounds in world coordinates
+	var min_x = INF
+	var max_x = -INF
+	var min_y = INF
+	var max_y = -INF
+
+	for cell in used_cells:
+		var world_x = cell.x * tile_size.x * tile_scale.x
+		var world_y = cell.y * tile_size.y * tile_scale.y
+		min_x = min(min_x, world_x)
+		max_x = max(max_x, world_x)
+		min_y = min(min_y, world_y)
+		max_y = max(max_y, world_y)
+
+	# Add tile size to get the right/bottom edges
+	var right_edge = max_x + tile_size.x * tile_scale.x
+	var bottom_edge = max_y + tile_size.y * tile_scale.y
+
+	# Calculate how much of the world should be visible on each side
+	var viewport_width = get_viewport().size.x
+	var viewport_height = get_viewport().size.y
+	var half_view_x = viewport_width / (2 * camera.zoom.x)
+	var half_view_y = viewport_height / (2 * camera.zoom.y)
+
+	# Set camera limits with padding so player can reach screen edges
+	camera.limit_left = min_x - half_view_x
+	camera.limit_right = right_edge + half_view_x
+	camera.limit_top = min_y - half_view_y
+	camera.limit_bottom = bottom_edge + half_view_y
