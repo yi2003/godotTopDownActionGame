@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cc6nwdirk72c" path="res://assets/images/tilesets/Water_Tile.png" id="3_fhjsa"]
 [ext_resource type="PackedScene" uid="uid://slime001" path="res://assets/scenes/enemies/slime.tscn" id="4_fhjsa"]
 [ext_resource type="Texture2D" uid="uid://3ph5x1ees3rk" path="res://assets/images/tilesets/Oak_Tree.png" id="4_lvcik"]
+[ext_resource type="Texture2D" uid="uid://dyyxnvi80ewlv" path="res://assets/images/tilesets/Bridge_Wood.png" id="4_yyfxr"]
 [ext_resource type="Texture2D" uid="uid://dgrs0k4ole151" path="res://assets/images/tilesets/Outdoor_Decor_Free.png" id="5_yyfxr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fblen"]
@@ -51,11 +52,65 @@ texture = ExtResource("3_fhjsa")
 1:5/0 = 0
 2:5/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gxupv"]
+texture = ExtResource("4_yyfxr")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yyfxr"]
+texture = ExtResource("3_fhjsa")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_2qi4d"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fblen")
 sources/1 = SubResource("TileSetAtlasSource_2qi4d")
 sources/2 = SubResource("TileSetAtlasSource_a12kb")
+sources/3 = SubResource("TileSetAtlasSource_gxupv")
+sources/4 = SubResource("TileSetAtlasSource_yyfxr")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_he1e8"]
 texture = ExtResource("4_lvcik")
@@ -152,10 +207,44 @@ texture = ExtResource("5_yyfxr")
 2:11/0 = 0
 3:11/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7y873"]
+texture = ExtResource("4_yyfxr")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_gxupv"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_he1e8")
 sources/1 = SubResource("TileSetAtlasSource_ffcip")
+sources/2 = SubResource("TileSetAtlasSource_7y873")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lvcik"]
 size = Vector2(100, 100)

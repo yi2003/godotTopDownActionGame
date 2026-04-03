@@ -1,8 +1,12 @@
-[gd_scene format=4 uid="uid://di8p73sgl4upq"]
+[gd_scene format=3 uid="uid://di8p73sgl4upq"]
 
 [ext_resource type="PackedScene" uid="uid://bmclti0mtwde4" path="res://assets/scenes/level_root.tscn" id="1_kh38b"]
-[ext_resource type="Script" path="res://assets/scripts/level_root.gd" id="2_lvl1_script"]
+[ext_resource type="Script" uid="uid://dsqalwnxqm6rg" path="res://assets/scripts/level_root.gd" id="2_lvl1_script"]
 
 [node name="LevelRoot" unique_id=1540179368 instance=ExtResource("1_kh38b")]
 script = ExtResource("2_lvl1_script")
 next_level_path = "res://assets/scenes/level_2.tscn"
+
+[node name="Exit" parent="." index="4" unique_id=2144362966]
+position = Vector2(1365, 89)
+scale = Vector2(0.3, 0.3)
