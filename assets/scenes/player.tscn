@@ -346,8 +346,24 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s027a"]
 size = Vector2(50, 74.5)
 
+[sub_resource type="StyleBoxFlat" id="HealthBarBackground"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="HealthBarFill"]
+bg_color = Color(0, 1, 0, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1617379274]
 script = ExtResource("2_player")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=999999001]
+offset_left = -16.0
+offset_top = -20.0
+offset_right = 16.0
+offset_bottom = -14.0
+theme_override_styles/background = SubResource("HealthBarBackground")
+theme_override_styles/fill = SubResource("HealthBarFill")
+max_value = 3.0
+show_percentage = false
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1343125974]
 position = Vector2(44, -1)

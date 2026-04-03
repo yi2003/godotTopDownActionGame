@@ -2,12 +2,15 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
+@onready var damage_zone = $DamageZone
+@onready var damage_zone_shape = $DamageZone/DamageZoneShape
 
 const SPEED = 100.0
 const CHASE_SPEED = 80.0
 const DETECTION_RANGE = 150.0
 const STOP_RANGE = 40.0
 const KNOCKBACK_DECAY = 0.85
+const DAMAGE_AMOUNT = 1
 var health = 3
 var max_health = 3
 var is_dead = false
@@ -18,6 +21,7 @@ var knockback_velocity = Vector2.ZERO
 func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
+	damage_zone.body_entered.connect(_on_damage_zone_body_entered)
 
 func _physics_process(delta):
 	if is_dead:
@@ -82,3 +86,13 @@ func die():
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
 	queue_free()
+
+func _on_damage_zone_body_entered(body):
+	if body.name == "Player" and not is_dead:
+		if body.has_method("take_damage"):
+			body.take_damage()
+			# Apply knockback away from slime
+			var knockback_dir = (body.global_position - global_position).normalized()
+			var knockback = knockback_dir * 300
+			if body.has_method("apply_knockback"):
+				body.apply_knockback(knockback)

@@ -1,24 +1,39 @@
 extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var hitbox = $Hitbox
-@onready var hitbox_shape = $Hitbox/HitboxShape
-@onready var camera = $Camera2D
+@onready var health_bar = $HealthBar
 
 const SPEED = 300.0
 var last_direction = Vector2(0, 1)
 var is_attacking = false
+var health = 3
+var max_health = 3
+var is_dead = false
+var knockback_velocity = Vector2.ZERO
+const KNOCKBACK_DECAY = 0.85
 
 func _ready():
 	print("=== PLAYER _READY() STARTED ===")
 	print("Player parent: ", get_parent().name if get_parent() else "null")
 	print("Player path: ", get_path())
 	add_to_group("player")
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = health
 	_setup_camera_limits()
 	print("=== PLAYER _READY() ENDED ===")
 
 func _physics_process(delta):
+	if is_dead:
+		return
+
+	# Apply knockback
+	if knockback_velocity.length() > 1:
+		velocity = knockback_velocity
+		knockback_velocity *= KNOCKBACK_DECAY
+		move_and_slide()
+		return
+
 	if Input.is_action_just_pressed("ui_accept") and not is_attacking:
 		perform_attack()
 		return
@@ -133,3 +148,24 @@ func _setup_camera_limits():
 	camera.make_current()
 
 	print("Player: Camera limits - L:", camera.limit_left, " R:", camera.limit_right, " T:", camera.limit_top, " B:", camera.limit_bottom)
+
+func apply_knockback(force: Vector2):
+	knockback_velocity = force
+
+func take_damage():
+	if is_dead:
+		return
+	health -= 1
+	if health_bar:
+		health_bar.value = health
+	print("Player took damage! Health: ", health)
+	if health <= 0:
+		die()
+
+func die():
+	is_dead = true
+	# Could play death animation here
+	animated_sprite.modulate = Color.RED
+	await get_tree().create_timer(0.5).timeout
+	# Reset to main menu or respawn
+	get_tree().change_scene_to_file("res://assets/scenes/level_root.tscn")
