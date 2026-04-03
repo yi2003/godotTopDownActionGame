@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://0t1273bdund4"]
 
+[ext_resource type="Script" uid="uid://dda6e4xy7rayv" path="res://assets/scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" uid="uid://bmclti0mtwde4" path="res://assets/scenes/level_root.tscn" id="1_mr7gh"]
+[ext_resource type="Script" uid="uid://dsqalwnxqm6rg" path="res://assets/scripts/level_root.gd" id="3_dfgan"]
 
 [node name="main" type="Node2D" unique_id=1220600513]
+script = ExtResource("1_main")
 
 [node name="LevelRoot" parent="." unique_id=1540179368 instance=ExtResource("1_mr7gh")]
 position = Vector2(-6, 0)
+script = ExtResource("3_dfgan")
+next_level_path = "res://assets/scenes/level_1.tscn"

@@ -10,9 +10,13 @@ var last_direction = Vector2(0, 1)
 var is_attacking = false
 
 func _ready():
+	print("=== PLAYER _READY() STARTED ===")
+	print("Player parent: ", get_parent().name if get_parent() else "null")
+	print("Player path: ", get_path())
 	add_to_group("player")
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	_setup_camera_limits()
+	print("=== PLAYER _READY() ENDED ===")
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and not is_attacking:

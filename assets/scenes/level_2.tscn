@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c7oimralgxmys"]
+
+[ext_resource type="PackedScene" uid="uid://bmclti0mtwde4" path="res://assets/scenes/level_root.tscn" id="1_01qu3"]
+[ext_resource type="PackedScene" uid="uid://slime001" path="res://assets/scenes/enemies/slime.tscn" id="2_xkxx6"]
+[ext_resource type="Script" uid="uid://dsqalwnxqm6rg" path="res://assets/scripts/level_root.gd" id="3_lvl2_script"]
+
+[node name="LevelRoot" unique_id=1540179368 instance=ExtResource("1_01qu3")]
+script = ExtResource("3_lvl2_script")
+next_level_path = "res://assets/scenes/level_1.tscn"
+
+[node name="Slime" parent="." index="3" unique_id=1378315419]
+position = Vector2(287, 141)
+
+[node name="Slime2" parent="." index="4" unique_id=1163442184 instance=ExtResource("2_xkxx6")]
+position = Vector2(653, 245)
+
+[node name="Slime3" parent="." index="5" unique_id=2105906802 instance=ExtResource("2_xkxx6")]
+position = Vector2(686, 466)
