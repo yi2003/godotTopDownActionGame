@@ -8,7 +8,6 @@ extends CharacterBody2D
 const SPEED = 100.0
 const CHASE_SPEED = 80.0
 const DETECTION_RANGE = 150.0
-const STOP_RANGE = 40.0
 const KNOCKBACK_DECAY = 0.85
 const DAMAGE_AMOUNT = 1
 var health = 3
@@ -48,15 +47,9 @@ func _physics_process(delta):
 
 	# Chase or idle
 	if is_chasing and player:
-		var distance = global_position.distance_to(player.global_position)
 		var direction = global_position.direction_to(player.global_position)
-		# Stop at minimum distance to avoid overlapping
-		if distance > STOP_RANGE:
-			velocity = direction * CHASE_SPEED
-			animated_sprite.play("walk")
-		else:
-			velocity = Vector2.ZERO
-			animated_sprite.play("idle")
+		velocity = direction * CHASE_SPEED
+		animated_sprite.play("walk")
 		if direction.x < 0:
 			animated_sprite.flip_h = true
 		else:
