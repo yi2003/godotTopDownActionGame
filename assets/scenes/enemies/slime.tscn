@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cr4io2qplvqtl" path="res://assets/images/Enemies/Slime_Green.png" id="1_slime"]
 [ext_resource type="Script" uid="uid://bvfotquli5vy0" path="res://assets/scripts/enemies/slime.gd" id="2_slime_script"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
+size = Vector2(2.0714285, 1.9523808)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_akxfh"]
 atlas = ExtResource("1_slime")
 region = Rect2(0, 128, 64, 64)
@@ -161,9 +164,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
-size = Vector2(2.142857, 1.9047616)
-
 [sub_resource type="StyleBoxFlat" id="HealthBarBackground"]
 bg_color = Color(1, 0, 0, 1)
 
@@ -176,9 +176,9 @@ script = ExtResource("2_slime_script")
 
 [node name="DamageZone" type="Area2D" parent="." unique_id=555555001]
 collision_layer = 2
-collision_mask = 1
 
 [node name="DamageZoneShape" type="CollisionShape2D" parent="DamageZone" unique_id=555555002]
+position = Vector2(0.03571427, -0.023809612)
 shape = SubResource("RectangleShape2D_slime")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=322877672]

@@ -164,8 +164,8 @@ func take_damage():
 
 func die():
 	is_dead = true
-	# Could play death animation here
-	animated_sprite.modulate = Color.RED
-	await get_tree().create_timer(0.5).timeout
+	velocity = Vector2.ZERO
+	animated_sprite.play("die")
+	await animated_sprite.animation_finished
 	# Reset to main menu or respawn
 	get_tree().change_scene_to_file("res://assets/scenes/level_root.tscn")
