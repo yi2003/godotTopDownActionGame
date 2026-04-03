@@ -2,6 +2,9 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
+@onready var hitbox = $Hitbox
+@onready var hitbox_shape = $Hitbox/HitboxShape
+@onready var camera = $Camera2D
 
 const SPEED = 300.0
 var last_direction = Vector2(0, 1)

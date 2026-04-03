@@ -171,11 +171,13 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Slime" type="CharacterBody2D" unique_id=1378315419]
-collision_layer = 2
+collision_layer = 1
+collision_mask = 3
 script = ExtResource("2_slime_script")
 
 [node name="DamageZone" type="Area2D" parent="." unique_id=555555001]
 collision_layer = 2
+collision_mask = 1
 
 [node name="DamageZoneShape" type="CollisionShape2D" parent="DamageZone" unique_id=555555002]
 position = Vector2(0.03571427, -0.023809612)
