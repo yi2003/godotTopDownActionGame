@@ -25,6 +25,8 @@ func _ready():
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = health
+	# Connect hitbox signal
+	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	_setup_camera_limits()
 	print("=== PLAYER _READY() ENDED ===")
 

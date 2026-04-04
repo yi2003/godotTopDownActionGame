@@ -389,10 +389,10 @@ size = Vector2(50, 74.5)
 script = ExtResource("2_player")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=999999001]
-offset_left = -16.0
-offset_top = -20.0
-offset_right = 16.0
-offset_bottom = -14.0
+offset_left = -5.0
+offset_top = 47.0
+offset_right = 27.0
+offset_bottom = 53.0
 theme_override_styles/background = SubResource("HealthBarBackground")
 theme_override_styles/fill = SubResource("HealthBarFill")
 max_value = 3.0
@@ -401,7 +401,6 @@ show_percentage = false
 [node name="Hitbox" type="Area2D" parent="." unique_id=1343125974]
 position = Vector2(44, -1)
 collision_layer = 2
-collision_mask = 1
 metadata/_edit_group_ = true
 
 [node name="HitboxShape" type="CollisionShape2D" parent="Hitbox" unique_id=1211797153]
