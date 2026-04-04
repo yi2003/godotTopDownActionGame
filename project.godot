@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="新建游戏项目"
-run/main_scene="uid://d2ciunb74sdka"
+run/main_scene="uid://0t1273bdund4"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+PlayerData="*res://assets/scripts/player_data.gd"
 
 [physics]
 

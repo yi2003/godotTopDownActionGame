@@ -7,10 +7,10 @@ extends CharacterBody2D
 @onready var camera = $Camera2D
 
 const SPEED = 300.0
-var last_direction = Vector2(0, 1)
+var last_direction = PlayerData.last_direction
 var is_attacking = false
-var health = 100
-var max_health = 100
+var health = PlayerData.health
+var max_health = PlayerData.max_health
 var is_dead = false
 var is_invincible = false
 var invincibility_duration = 0.5
@@ -22,6 +22,7 @@ func _ready():
 	print("Player parent: ", get_parent().name if get_parent() else "null")
 	print("Player path: ", get_path())
 	add_to_group("player")
+	# Health and max_health are already synced from PlayerData via var initialization
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = health
@@ -70,7 +71,10 @@ func _physics_process(delta):
 			else:
 				animated_sprite.play("idle_right")
 
-	move_and_slide()
+		# Persist direction for next level
+		PlayerData.last_direction = last_direction
+
+		move_and_slide()
 
 func perform_attack():
 	is_attacking = true
@@ -164,6 +168,8 @@ func take_damage(damage_amount: int = 1):
 		return
 	is_invincible = true
 	health -= damage_amount
+	# Persist health
+	PlayerData.health = health
 	if health_bar:
 		health_bar.value = health
 	print("Player took damage! Health: ", health)
@@ -180,5 +186,8 @@ func die():
 	velocity = Vector2.ZERO
 	animated_sprite.play("die")
 	await animated_sprite.animation_finished
-	# Reset to main menu or respawn
-	get_tree().change_scene_to_file("res://assets/scenes/level_root.tscn")
+	# Reset stats for the next attempt
+	PlayerData.health = PlayerData.max_health
+	PlayerData.last_direction = Vector2(0, 1)
+	# Restart from level 1
+	get_tree().change_scene_to_file("res://assets/scenes/level_1.tscn")
