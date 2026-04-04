@@ -9,9 +9,11 @@ extends CharacterBody2D
 const SPEED = 300.0
 var last_direction = Vector2(0, 1)
 var is_attacking = false
-var health = 3
-var max_health = 3
+var health = 100
+var max_health = 100
 var is_dead = false
+var is_invincible = false
+var invincibility_duration = 0.5
 var knockback_velocity = Vector2.ZERO
 const KNOCKBACK_DECAY = 0.85
 
@@ -155,13 +157,19 @@ func _setup_camera_limits():
 func apply_knockback(force: Vector2):
 	knockback_velocity = force
 
-func take_damage():
-	if is_dead:
+func take_damage(damage_amount: int = 1):
+	if is_dead or is_invincible:
 		return
-	health -= 1
+	is_invincible = true
+	health -= damage_amount
 	if health_bar:
 		health_bar.value = health
 	print("Player took damage! Health: ", health)
+	# Flash to indicate invincibility
+	animated_sprite.modulate.a = 0.5
+	await get_tree().create_timer(invincibility_duration).timeout
+	animated_sprite.modulate.a = 1.0
+	is_invincible = false
 	if health <= 0:
 		die()
 
