@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal player_died
+
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
 @onready var hitbox = $Hitbox
@@ -185,9 +187,6 @@ func die():
 	is_dead = true
 	velocity = Vector2.ZERO
 	animated_sprite.play("die")
+	# Wait for death animation to complete, then notify main scene
 	await animated_sprite.animation_finished
-	# Reset stats for the next attempt
-	PlayerData.health = PlayerData.max_health
-	PlayerData.last_direction = Vector2(0, 1)
-	# Restart from level 1
-	get_tree().change_scene_to_file("res://assets/scenes/level_1.tscn")
+	player_died.emit()

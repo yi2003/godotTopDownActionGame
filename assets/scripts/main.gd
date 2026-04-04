@@ -1,6 +1,7 @@
 extends Node2D
 
 var current_level: Node2D = null
+var player: Node = null
 
 func _ready():
 	print("[Main] _ready() - Starting game")
@@ -34,6 +35,35 @@ func load_level(level_path: String):
 	else:
 		print("[Main] WARNING: Level does not have level_completed signal")
 
+	# Find player and connect death signal
+	var new_player = current_level.get_node_or_null("Player")
+	if new_player:
+		if player and player.is_connected("player_died", _on_player_died):
+			player.player_died.disconnect(_on_player_died)
+		player = new_player
+		player.player_died.connect(_on_player_died)
+		print("[Main] Connected to player death signal")
+
+	# Fade in from black when level loads
+	var fade = $FadeOverlay
+	if fade:
+		fade.fade_in(1.0)
+
 func _on_level_completed(next_level_path: String):
 	print("[Main] Level completed, loading next level: ", next_level_path)
+	# Fade out before transitioning
+	var fade = $FadeOverlay
+	if fade:
+		await fade.fade_out_complete(1.0)
 	load_level(next_level_path)
+
+func _on_player_died():
+	print("[Main] Player died - fading to black...")
+	var fade = $FadeOverlay
+	if fade:
+		await fade.fade_out_complete(1.0)
+	# Reset health and restart from level 1
+	PlayerData.health = PlayerData.max_health
+	PlayerData.last_direction = Vector2(0, 1)
+	print("[Main] Restarting from level 1")
+	load_level("res://assets/scenes/level_1.tscn")

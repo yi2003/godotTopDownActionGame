@@ -389,9 +389,9 @@ size = Vector2(50, 74.5)
 script = ExtResource("2_player")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=999999001]
-offset_left = -5.0
+offset_left = -14.0
 offset_top = 47.0
-offset_right = 27.0
+offset_right = 18.0
 offset_bottom = 53.0
 theme_override_styles/background = SubResource("HealthBarBackground")
 theme_override_styles/fill = SubResource("HealthBarFill")
@@ -412,10 +412,8 @@ debug_color = Color(1, 0, 0, 0.4)
 position = Vector2(0, 3)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_0hrit")
-animation = &"die"
+animation = &"idle_right"
 autoplay = "idle_right"
-frame = 3
-frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1627384650]
 position = Vector2(0, 3)
