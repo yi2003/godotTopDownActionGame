@@ -20,9 +20,12 @@ var is_chasing = false
 var player = null
 var knockback_velocity = Vector2.ZERO
 
-enum State { CHASE, ATTACK, IDLE }
+enum State { CHASE, ATTACK, IDLE, STUNNED }
 var state = State.CHASE
 var idle_timer = 0.0
+var stunned_timer = 0.0
+var attack_direction = Vector2.ZERO
+const STUNNED_DURATION = 0.4
 
 func _ready():
 	health_bar.max_value = max_health
@@ -63,6 +66,7 @@ func _physics_process(delta):
 				else:
 					velocity = Vector2.ZERO
 					animated_sprite.play("idle")
+					attack_direction = direction  # Store direction when entering attack
 					state = State.ATTACK
 				# Face player
 				if direction.x < 0:
@@ -78,16 +82,25 @@ func _physics_process(delta):
 				if distance <= ATTACK_RANGE and not player.is_dead:
 					if player.has_method("take_damage"):
 						player.take_damage(10)
-						var knockback_dir = (player.global_position - global_position).normalized()
-						# Prevent vertical knockback from sticking player under slime
-						if abs(knockback_dir.y) > abs(knockback_dir.x):
-							knockback_dir.x = sign(knockback_dir.x) if knockback_dir.x != 0 else (-1.0 if animated_sprite.flip_h else 1.0)
-							knockback_dir = knockback_dir.normalized()
-						var knockback = knockback_dir * 300
+						# Use stored attack_direction for consistent knockback
+						var knockback_dir = attack_direction.normalized()
+						# Knockback player in attack direction (away from slime)
+						var knockback = knockback_dir * 250
 						if player.has_method("apply_knockback"):
 							player.apply_knockback(knockback)
-				state = State.IDLE
-				idle_timer = ATTACK_COOLDOWN
+						# Slime also gets knocked back slightly after attacking
+						knockback_velocity = -knockback_dir * 150
+				# Go to stunned state during attack animation recovery
+				state = State.STUNNED
+				stunned_timer = STUNNED_DURATION
+
+			State.STUNNED:
+				velocity = Vector2.ZERO
+				animated_sprite.play("idle")
+				stunned_timer -= delta
+				if stunned_timer <= 0:
+					state = State.IDLE
+					idle_timer = ATTACK_COOLDOWN
 
 			State.IDLE:
 				velocity = Vector2.ZERO
