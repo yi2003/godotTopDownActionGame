@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dyyxnvi80ewlv" path="res://assets/images/tilesets/Bridge_Wood.png" id="4_yyfxr"]
 [ext_resource type="Texture2D" uid="uid://c5p8l1d0rhgdx" path="res://assets/images/tilesets/Heart.png" id="5_he1e8"]
 [ext_resource type="Texture2D" uid="uid://dgrs0k4ole151" path="res://assets/images/tilesets/Outdoor_Decor_Free.png" id="5_yyfxr"]
+[ext_resource type="PackedScene" uid="uid://dfypc6qv17yfs" path="res://assets/scenes/heal_item.tscn" id="10_ffcip"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fblen"]
 texture = ExtResource("1_670q8")
@@ -288,3 +289,6 @@ metadata/_edit_group_ = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit" unique_id=2132804735]
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_lvcik")
+
+[node name="HealItem" parent="." unique_id=428069717 instance=ExtResource("10_ffcip")]
+position = Vector2(696, 265)

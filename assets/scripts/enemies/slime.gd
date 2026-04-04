@@ -135,4 +135,12 @@ func die():
 	health_bar.visible = false
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
+	spawn_heal_item()
 	queue_free()
+
+func spawn_heal_item():
+	var heal_item_scene = preload("res://assets/scenes/heal_item.tscn")
+	var heal_item = heal_item_scene.instantiate()
+	heal_item.global_position = global_position
+	get_parent().add_child(heal_item)
+	print("Slime: spawned heal item at ", global_position)

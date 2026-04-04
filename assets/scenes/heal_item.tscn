@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dfypc6qv17yfs"]
+
+[ext_resource type="Texture2D" uid="uid://brqqik7rpbvu2" path="res://assets/images/Items/IconHeart.png" id="1_vo1k7"]
+[ext_resource type="Script" path="res://assets/scripts/heal_item.gd" id="2_heal"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jspl7"]
+size = Vector2(6.125, 5.5)
+
+[node name="HealItem" type="Area2D" unique_id=428069717]
+script = ExtResource("2_heal")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2096874001]
+scale = Vector2(2, 2)
+texture = ExtResource("1_vo1k7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=992623367]
+position = Vector2(-1, 0)
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_jspl7")
