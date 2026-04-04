@@ -81,7 +81,7 @@ func _physics_process(delta):
 						var knockback_dir = (player.global_position - global_position).normalized()
 						# Prevent vertical knockback from sticking player under slime
 						if abs(knockback_dir.y) > abs(knockback_dir.x):
-							knockback_dir.x = sign(knockback_dir.x) if knockback_dir.x != 0 else 1.0
+							knockback_dir.x = sign(knockback_dir.x) if knockback_dir.x != 0 else (-1.0 if animated_sprite.flip_h else 1.0)
 							knockback_dir = knockback_dir.normalized()
 						var knockback = knockback_dir * 300
 						if player.has_method("apply_knockback"):
