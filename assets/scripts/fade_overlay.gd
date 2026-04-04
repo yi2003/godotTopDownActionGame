@@ -21,9 +21,8 @@ func _ready():
 func _on_viewport_size_changed():
 	var viewport = get_viewport()
 	var size = viewport.size
-	# Convert Vector2i to Vector2
-	fade_rect.rect_size = Vector2(size.x, size.y)
-	fade_rect.rect_position = Vector2.ZERO
+	fade_rect.size = Vector2(size.x, size.y)
+	fade_rect.position = Vector2.ZERO
 
 # Fade to a target alpha - returns a signal that completes when done
 func fade_to(target_alpha: float, duration: float = 1.0) -> Signal:
@@ -60,4 +59,3 @@ func fade_out(duration: float = 0.5) -> Signal:
 # For backwards compatibility with existing code using await fade.fade_out_complete()
 func fade_out_complete(duration: float = 1.0) -> Signal:
 	return fade_out(duration)
-
