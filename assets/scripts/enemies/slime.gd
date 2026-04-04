@@ -77,8 +77,12 @@ func _physics_process(delta):
 				var distance = global_position.distance_to(player.global_position)
 				if distance <= ATTACK_RANGE and not player.is_dead:
 					if player.has_method("take_damage"):
-						player.take_damage()
+						player.take_damage(10)
 						var knockback_dir = (player.global_position - global_position).normalized()
+						# Prevent vertical knockback from sticking player under slime
+						if abs(knockback_dir.y) > abs(knockback_dir.x):
+							knockback_dir.x = sign(knockback_dir.x) if knockback_dir.x != 0 else 1.0
+							knockback_dir = knockback_dir.normalized()
 						var knockback = knockback_dir * 300
 						if player.has_method("apply_knockback"):
 							player.apply_knockback(knockback)
