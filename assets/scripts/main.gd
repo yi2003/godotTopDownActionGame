@@ -44,6 +44,11 @@ func load_level(level_path: String):
 		player.player_died.connect(_on_player_died)
 		print("[Main] Connected to player death signal")
 
+	# Connect HealthUI to the new player
+	var health_ui = $HealthUI
+	if health_ui and health_ui.has_method("connect_to_player") and new_player:
+		health_ui.connect_to_player(new_player)
+
 	# Fade in from black when level loads
 	var fade = $FadeOverlay
 	if fade:

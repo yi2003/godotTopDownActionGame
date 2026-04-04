@@ -80,6 +80,7 @@ func _physics_process(delta):
 				# Deal damage if player is within attack range
 				var distance = global_position.distance_to(player.global_position)
 				if distance <= ATTACK_RANGE and not player.is_dead:
+					print("Slime: Attacking player ", player.name, " ID=", player.get_instance_id())
 					if player.has_method("take_damage"):
 						player.take_damage(10)
 						# Use stored attack_direction for consistent knockback

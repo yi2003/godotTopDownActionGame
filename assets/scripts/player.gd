@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal player_died
+signal health_changed
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
@@ -101,7 +102,7 @@ func _on_attack_finished():
 	animated_sprite.animation_finished.disconnect(_on_attack_finished)
 
 func _on_hitbox_body_entered(body):
-	print("Hit: ", body.name)
+	print("Player: body_entered - body=", body.name, " is_dead=", is_dead)
 	if body.has_method("take_damage"):
 		body.take_damage()
 		# Apply knockback in the direction the player is facing
@@ -172,6 +173,8 @@ func take_damage(damage_amount: int = 1):
 	health -= damage_amount
 	# Persist health
 	PlayerData.health = health
+	print("Player: EMITTING health_changed, health now=", health)
+	health_changed.emit()
 	if health_bar:
 		health_bar.value = health
 	print("Player took damage! Health: ", health)

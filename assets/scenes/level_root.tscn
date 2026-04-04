@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://slime001" path="res://assets/scenes/enemies/slime.tscn" id="4_fhjsa"]
 [ext_resource type="Texture2D" uid="uid://3ph5x1ees3rk" path="res://assets/images/tilesets/Oak_Tree.png" id="4_lvcik"]
 [ext_resource type="Texture2D" uid="uid://dyyxnvi80ewlv" path="res://assets/images/tilesets/Bridge_Wood.png" id="4_yyfxr"]
+[ext_resource type="Texture2D" uid="uid://c5p8l1d0rhgdx" path="res://assets/images/tilesets/Heart.png" id="5_he1e8"]
 [ext_resource type="Texture2D" uid="uid://dgrs0k4ole151" path="res://assets/images/tilesets/Outdoor_Decor_Free.png" id="5_yyfxr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fblen"]
@@ -104,6 +105,14 @@ texture = ExtResource("3_fhjsa")
 1:5/0 = 0
 2:5/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4nrg7"]
+texture = ExtResource("5_he1e8")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_2qi4d"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fblen")
@@ -111,6 +120,7 @@ sources/1 = SubResource("TileSetAtlasSource_2qi4d")
 sources/2 = SubResource("TileSetAtlasSource_a12kb")
 sources/3 = SubResource("TileSetAtlasSource_gxupv")
 sources/4 = SubResource("TileSetAtlasSource_yyfxr")
+sources/5 = SubResource("TileSetAtlasSource_4nrg7")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_he1e8"]
 texture = ExtResource("4_lvcik")

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://brn4csw7a28dx"]
+
+[ext_resource type="Script" uid="uid://0b5orplruw4b" path="res://assets/scripts/health_ui.gd" id="1_health_ui"]
+
+[node name="HealthUI" type="CanvasLayer" unique_id=993300813]
+script = ExtResource("1_health_ui")
+
+[node name="HeartContainer" type="HBoxContainer" parent="." unique_id=112530587]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_right = 90.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
